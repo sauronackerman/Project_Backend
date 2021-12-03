@@ -1,14 +1,14 @@
 package routes
 
 import (
-	"PROJECT_BACKEND/factory"
 
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
+ "RestfulAPIElearningVideo/factory"
+ "github.com/labstack/echo/v4"
+ "github.com/labstack/echo/v4/middleware"
 )
 
-func New() *echo.Echo {
-	presenter := factory.New()
+func New() *echo.Echo  {
+ presenter := factory.New()
 
 	e := echo.New()
 	e.Pre(middleware.RemoveTrailingSlash())
@@ -26,4 +26,5 @@ func New() *echo.Echo {
 	e.POST("/tasks", presenter.TaskPresentation.CreateTask)
 	e.GET("/task/:videoId", presenter.TaskPresentation.GetTaskByVideoId)
 	return e
+
 }

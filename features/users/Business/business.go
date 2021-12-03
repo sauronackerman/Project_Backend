@@ -27,7 +27,7 @@ func (ub *usersBusiness) LoginUser(data users.UserCore) (users.UserCore, error) 
 	if err != nil {
 		return userData, err
 	}
-	return userData, err
+	return userData, nil
 }
 
 func (ub *usersBusiness) UserChooseCourse(username string, playlistId string) (error, int) {

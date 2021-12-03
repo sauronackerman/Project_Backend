@@ -1,16 +1,19 @@
 package factory
 
 import (
-	"PROJECT_BACKEND/config"
-	courseBusiness "PROJECT_BACKEND/features/courses/Business"
-	courseData "PROJECT_BACKEND/features/courses/Data"
-	coursePresentation "PROJECT_BACKEND/features/courses/Presentation"
-	taskBusiness "PROJECT_BACKEND/features/tasks/Business"
-	taskData "PROJECT_BACKEND/features/tasks/Data"
-	taskPresentation "PROJECT_BACKEND/features/tasks/Presentation"
-	userBusiness "PROJECT_BACKEND/features/users/Business"
-	userData "PROJECT_BACKEND/features/users/Data"
-	userPresentation "PROJECT_BACKEND/features/users/Presentation"
+
+	"RestfulAPIElearningVideo/config"
+	courseBusiness "RestfulAPIElearningVideo/features/courses/Business"
+	courseData "RestfulAPIElearningVideo/features/courses/Data"
+	taskBusiness "RestfulAPIElearningVideo/features/tasks/Business"
+	taskData "RestfulAPIElearningVideo/features/tasks/Data"
+	taskPresentation "RestfulAPIElearningVideo/features/tasks/Presentation"
+	userBusiness "RestfulAPIElearningVideo/features/users/Business"
+	userData "RestfulAPIElearningVideo/features/users/Data"
+	userPresentation "RestfulAPIElearningVideo/features/users/Presentation"
+
+	coursePresentation "RestfulAPIElearningVideo/features/courses/Presentation"
+
 )
 
 type Presenter struct {

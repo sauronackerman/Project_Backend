@@ -1,12 +1,15 @@
 package response
 
 import (
-	"PROJECT_BACKEND/features/courses"
+
+	"RestfulAPIElearningVideo/features/courses"
+
 	"database/sql"
 	"time"
 )
 
 type CreateCourse struct {
+
 	ID          uint         `json:"id"`
 	CreatedAt   time.Time    `json:"created_at"`
 	UpdatedAt   time.Time    `json:"updated_at"`
@@ -14,6 +17,7 @@ type CreateCourse struct {
 	Title       string       `json:"title"`
 	Description string       `json:"description"`
 	PlaylistID  string       `json:"playlist_id"`
+
 	//Video []CreateVideo `json:"video"`
 }
 
@@ -25,4 +29,4 @@ func ToCourseResponse(c courses.CourseCore) CreateCourse {
 	return CreateCourse{
 		PlaylistID: c.PlaylistID,
 	}
-}
+

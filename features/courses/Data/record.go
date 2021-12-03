@@ -1,7 +1,8 @@
 package Data
 
 import (
-	"PROJECT_BACKEND/features/courses"
+
+	"RestfulAPIElearningVideo/features/courses"
 	"time"
 )
 
@@ -9,7 +10,8 @@ type Course struct {
 	ID          uint `gorm:"primaryKey"`
 	Title       string
 	Description string
-	PlaylistID  string  `gorm:"primaryKey"`
+	PlaylistID  string `gorm:"primaryKey"`
+
 	Videos      []Video `gorm:"foreignKey:CourseID;type:longtext;reference:PlaylistID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	UpdatedAt   time.Time
 	CreatedAt   time.Time
@@ -69,6 +71,7 @@ func toCore2(c Course) courses.CourseCore {
 	}
 }
 
+
 func toSliceVideoCore(v []Video) []courses.VideoCore {
 	videos := make([]courses.VideoCore, len(v))
 
@@ -95,19 +98,19 @@ func fromVideoCore(v courses.VideoCore) Video {
 	return Video{
 		ID:       v.ID,
 		Title:    v.Title,
-		VideoID:  v.VideoID,
+		VideoID: v.VideoID,
 		Duration: v.Duration,
 	}
 }
-
 //
+
 
 func (a *Video) toCore() courses.VideoCore {
 	return courses.VideoCore{
-		ID:       a.ID,
-		Title:    a.Title,
-		VideoID:  a.VideoID,
-		Duration: a.Duration,
+		ID:          a.ID,
+		Title:       a.Title,
+		VideoID:     a.VideoID,
+		Duration:    a.Duration,
 	}
 }
 
