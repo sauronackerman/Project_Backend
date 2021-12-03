@@ -6,7 +6,7 @@ import (
 )
 
 type ConfigEnv interface {
-
+	Get(key string) string
 }
 
 func New(env...string) ConfigEnv  {

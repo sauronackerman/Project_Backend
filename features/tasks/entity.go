@@ -13,7 +13,6 @@ type TaskCore struct {
 type Business interface {
 	CreateTaskByVideoId(data TaskCore) (TaskCore, error, int)
 	FindTaskByVideoId(videoId string) (TaskCore, error, int)
-
 	//GetTaskById(id int) (TaskCore, error)
 	DeleteTask(videoId string) (TaskCore, error)
 	//UpdateTask(data TaskCore) error
