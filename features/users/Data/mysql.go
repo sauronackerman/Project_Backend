@@ -1,14 +1,14 @@
 package Data
 
 import (
-
-	"RestfulAPIElearningVideo/features/users"
+	"PROJECT_BACKEND/features/users"
 	"context"
 	"errors"
+	"log"
+
 	"google.golang.org/api/option"
 	"google.golang.org/api/youtube/v3"
 	"gorm.io/gorm"
-	"log"
 )
 
 type userData struct {
@@ -20,8 +20,6 @@ func NewUserData(conn *gorm.DB) users.Data {
 		conn,
 	}
 }
-
-
 
 func (ud *userData) CheckUser(data users.UserCore) (users.UserCore, error) {
 	var userData User
@@ -62,6 +60,7 @@ func (ud *userData) SelectCourseByPlaylistId(playlistId string) (string, error) 
 	}
 	return playlistId, nil
 }
+
 //func (ud *userData) SelectTaskByVideoId(videoId string) (string, error) {
 //	task := users.UserTaskCore{}
 //	err := ud.Conn.Where("video_id = ?", task.TaskID).First(&task).Error
@@ -71,16 +70,15 @@ func (ud *userData) SelectCourseByPlaylistId(playlistId string) (string, error) 
 //	return videoId, nil
 //}
 
-
 func (ud *userData) InsertUserCourse(courses users.UserCourse) error {
 	newCourse := UserCourse{
-		UserID:     courses.UserID,
+		UserID:   courses.UserID,
 		CourseID: courses.CourseID,
 	}
 	return ud.Conn.Create(&newCourse).Error
 }
 
-func (ud *userData)  GetPlaylistIdforVideo(ctx context.Context, playlistId string, userId uint) ([]users.UserCourseVideo, error)  {
+func (ud *userData) GetPlaylistIdforVideo(ctx context.Context, playlistId string, userId uint) ([]users.UserCourseVideo, error) {
 
 	//API_KEY := os.Getenv("YT")
 	youtubeService, err := youtube.NewService(ctx, option.WithAPIKey("AIzaSyDNbJBf7nypZKyj5SQFi_haZ66-SsNWIiM"))
@@ -97,7 +95,7 @@ func (ud *userData)  GetPlaylistIdforVideo(ctx context.Context, playlistId strin
 	var videoParse []string
 	var video UserCourseVideo
 	var videoparse string
-	for _,item := range response.Items {
+	for _, item := range response.Items {
 		//video.CourseID = playlistId
 		//video.VideoID = item.ContentDetails.VideoId
 		videoparse = item.ContentDetails.VideoId
@@ -105,12 +103,12 @@ func (ud *userData)  GetPlaylistIdforVideo(ctx context.Context, playlistId strin
 		videoParse = append(videoParse, videoparse)
 	}
 	for i := 0; i < len(videoParse); i++ {
-		insert3 := youtube.NewVideosService(youtubeService).List([]string{"snippet","contentDetails"}).Id(videoParse[i])
+		insert3 := youtube.NewVideosService(youtubeService).List([]string{"snippet", "contentDetails"}).Id(videoParse[i])
 		resp, err := insert3.Do()
 		if err != nil {
 			panic(err)
 		}
-		for _,item := range resp.Items {
+		for _, item := range resp.Items {
 			video.UserID = userId
 			video.CourseID = playlistId
 			video.VideoID = videoParse[i]
@@ -128,7 +126,7 @@ func (ud *userData)  GetPlaylistIdforVideo(ctx context.Context, playlistId strin
 func (ud *userData) UpdateUserNoteData(id uint, data users.UserCourseVideo) (err error) {
 
 	record := UserCourseVideo{
-		Note:  data.Note,
+		Note: data.Note,
 	}
 	if err = ud.Conn.Model(&record).Where("user_id = ?", id).Updates(UserCourseVideo{Note: record.Note}).Error; err != nil {
 		return err

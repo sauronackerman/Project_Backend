@@ -1,12 +1,13 @@
 package Presentation
 
 import (
-	"RestfulAPIElearningVideo/features/users"
-	"RestfulAPIElearningVideo/features/users/Presentation/request"
-	"RestfulAPIElearningVideo/features/users/Presentation/response"
-	"github.com/labstack/echo/v4"
+	"PROJECT_BACKEND/features/users"
+	"PROJECT_BACKEND/features/users/Presentation/request"
+	"PROJECT_BACKEND/features/users/Presentation/response"
 	"net/http"
 	"strconv"
+
+	"github.com/labstack/echo/v4"
 )
 
 type UsersPresentation struct {
@@ -14,11 +15,11 @@ type UsersPresentation struct {
 }
 type json map[string]interface{}
 
-func NewUserPresentation(up users.Business) *UsersPresentation  {
+func NewUserPresentation(up users.Business) *UsersPresentation {
 	return &UsersPresentation{usersBusiness: up}
 }
 
-func (up *UsersPresentation) LoginUser(c echo.Context) error  {
+func (up *UsersPresentation) LoginUser(c echo.Context) error {
 	user := request.UserAuth{}
 	c.Bind(&user)
 	data, err := up.usersBusiness.LoginUser(user.ToUserCore())
@@ -60,7 +61,7 @@ func (up *UsersPresentation) PostUserCourse(c echo.Context) error {
 	})
 }
 
-func (up *UsersPresentation)  UserStartCourse(c echo.Context) error {
+func (up *UsersPresentation) UserStartCourse(c echo.Context) error {
 	var userId string
 	var videoId string
 
@@ -69,7 +70,7 @@ func (up *UsersPresentation)  UserStartCourse(c echo.Context) error {
 	var newVideo request.CreateVideo
 	ctx := c.Request().Context()
 	//req := c.Param("playlistId")
-	userIdd,_ := strconv.Atoi(userId)
+	userIdd, _ := strconv.Atoi(userId)
 	c.Bind(&newVideo)
 	video, err, status := up.usersBusiness.UserStartCourse(ctx, videoId, uint(userIdd))
 	if err != nil {
@@ -82,7 +83,7 @@ func (up *UsersPresentation)  UserStartCourse(c echo.Context) error {
 
 }
 
-func (up *UsersPresentation)  UpdateUserNoteData(c echo.Context) error {
+func (up *UsersPresentation) UpdateUserNoteData(c echo.Context) error {
 	user := request.UserCourseVideo{}
 	var userid string
 	echo.PathParamsBinder(c).String("id", &userid)

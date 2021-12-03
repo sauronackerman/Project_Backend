@@ -1,7 +1,9 @@
 package request
 
 import (
+
 	"RestfulAPIElearningVideo/features/courses"
+
 )
 
 type CreateCourse struct {
@@ -9,10 +11,12 @@ type CreateCourse struct {
 	//CreatedAt time.Time `json:"created_at"`
 	//UpdatedAt time.Time `json:"updated_at"`
 	//DeletedAt sql.NullTime `json:"deleted_at"`
-	Title string `json:"title"`
-	Description string `json:"description"`
-	PlaylistID string `json:"playlist_id"`
-	Video []CreateVideo `json:"video"`
+
+	Title       string        `json:"title"`
+	Description string        `json:"description"`
+	PlaylistID  string        `json:"playlist_id"`
+	Video       []CreateVideo `json:"video"`
+
 }
 
 type CreateVideo struct {
@@ -36,7 +40,6 @@ type CreateVideo struct {
 //
 
 
-
 func ToCore(req CreateCourse) courses.CourseCore {
 	return courses.CourseCore{
 		//ID:          req.ID,
@@ -45,6 +48,7 @@ func ToCore(req CreateCourse) courses.CourseCore {
 		Title:       req.Title,
 		Description: req.Description,
 		PlaylistID:   req.PlaylistID,
+
 		//Videos: ToVideoCore(req.Video),
 	}
 }
@@ -62,13 +66,10 @@ func ToCore(req CreateCourse) courses.CourseCore {
 //}
 
 
-
-
-
 type GetCourseInput struct {
 	ID int `uri:"id" binding:"required"`
 }
 
 type DetailCreateRequest struct {
 	PlaylistID string `json:"playlist_id"`
-}
+
