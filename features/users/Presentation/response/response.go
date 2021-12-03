@@ -1,20 +1,20 @@
 package response
 
-import "RestfulAPIElearningVideo/features/users"
+import "PROJECT_BACKEND/features/users"
 
 type User struct {
-	ID       uint    `json:"id" form:"id"`
+	ID       uint   `json:"id" form:"id"`
 	Name     string `json:"name" form:"name"`
 	Username string `json:"username" form:"username"`
 	Password string `json:"password" form:"password"`
 }
 
-func FromUserCore(req User) users.UserCore  {
+func FromUserCore(req User) users.UserCore {
 	return users.UserCore{
-		ID:          req.ID,
-		Name:        req.Name,
-		Username:    req.Username,
-		Password:    req.Password,
+		ID:       req.ID,
+		Name:     req.Name,
+		Username: req.Username,
+		Password: req.Password,
 	}
 }
 

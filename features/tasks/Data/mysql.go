@@ -1,7 +1,8 @@
 package Data
 
 import (
-	"RestfulAPIElearningVideo/features/tasks"
+	"PROJECT_BACKEND/features/tasks"
+
 	"gorm.io/gorm"
 )
 
@@ -13,13 +14,13 @@ func NewTaskData(conn *gorm.DB) *taskData {
 	return &taskData{Conn: conn}
 }
 
-func (td *taskData)	InsertData(data tasks.TaskCore) (tasks.TaskCore, error)  {
-record := fromCore(data)
-err := td.Conn.Create(&record).Error
-if err != nil {
-	return tasks.TaskCore{}, err
-}
-return toCore(record), nil
+func (td *taskData) InsertData(data tasks.TaskCore) (tasks.TaskCore, error) {
+	record := fromCore(data)
+	err := td.Conn.Create(&record).Error
+	if err != nil {
+		return tasks.TaskCore{}, err
+	}
+	return toCore(record), nil
 }
 
 func (td *taskData) SelectTaskByVideoId(videoId string) (tasks.TaskCore, error) {
@@ -39,4 +40,3 @@ func (td *taskData) DeleteTask(videoId string) (tasks.TaskCore, error) {
 	}
 	return toCore(task), nil
 }
-
