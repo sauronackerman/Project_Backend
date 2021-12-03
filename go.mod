@@ -1,4 +1,4 @@
-module RestfulAPIElearningVideo
+module PROJECT_BACKEND
 
 go 1.17
 
