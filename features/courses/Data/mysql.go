@@ -1,10 +1,12 @@
 package Data
 
 import (
-	"PROJECT_BACKEND/features/courses"
+	"RestfulAPIElearningVideo/features/courses"
 	"context"
 	"log"
+	"os"
 
+	"github.com/joho/godotenv"
 	"google.golang.org/api/option"
 	"google.golang.org/api/youtube/v3"
 	"gorm.io/gorm"
@@ -41,9 +43,13 @@ func (cd *courseData) InsertCourse(course courses.CourseCore) (resp courses.Cour
 	return toCourseCore(&newCourse), err
 }
 func (cd *courseData) GetPlaylistIdforVideo(ctx context.Context, playlistId string) ([]courses.VideoCore, error) {
-
+	err := godotenv.Load(".env")
+	if err != nil {
+		panic(err.Error())
+	}
 	//API_KEY := os.Getenv("YT")
-	youtubeService, err := youtube.NewService(ctx, option.WithAPIKey("AIzaSyDNbJBf7nypZKyj5SQFi_haZ66-SsNWIiM"))
+	API_KEY := os.Getenv("YT_API_KEY")
+	youtubeService, err := youtube.NewService(ctx, option.WithAPIKey(API_KEY))
 	if err != nil {
 		log.Fatalf("Error creating new YouTube client: %v", err)
 	}

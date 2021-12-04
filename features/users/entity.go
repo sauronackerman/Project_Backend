@@ -6,51 +6,55 @@ import (
 )
 
 type UserCore struct {
-	ID          uint
-	Name        string
-	Username    string
-	Password    string
+	ID uint
+	Name     	string
+	Username   	string
+	Password 	string
 	UserCourses []UserCourse
-	UserTasks   []UserTaskCore
+	UserTasks []UserTaskCore
 	Token       string
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
+	CreatedAt time.Time
+	UpdatedAt time.Time
+
 }
 
 type UserLog struct {
-	ID       int
-	Name     string
+	ID int
+	Name string
 	Username string
-	Token    string
+	Token string
 }
 
 type UserTaskCore struct {
-	ID          uint
-	UserID      uint
-	TaskID      string
+	ID uint
+	UserID uint
+	TaskID string
 	UserTaskURL string
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
 
+
+
+
 type UserCourse struct {
-	ID        uint
+	ID uint
 	CourseID  string
-	UserID    uint
+	UserID   uint
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
 
 type UserCourseVideo struct {
-	ID        uint `gorm:"primaryKey"`
-	UserID    uint
-	CourseID  string
-	Title     string
-	VideoID   string `gorm:"not null"`
-	Note      string
-	Duration  string
-	UpdatedAt time.Time
-	CreatedAt time.Time
+	ID       	uint `gorm:"primaryKey"`
+	UserID 		uint
+	CourseID 	string
+	Title 		string
+	VideoID 	string `gorm:"not null"`
+	Note 		string
+	Duration 	string
+	UpdatedAt 	time.Time
+	CreatedAt 	time.Time
 }
 
 type Business interface {
@@ -103,5 +107,4 @@ type Data interface {
 func (u *UserCore) IsNotFound() bool {
 	return u.ID == 0
 }
-
 //repo = business

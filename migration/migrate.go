@@ -1,8 +1,11 @@
 package migration
 
 import (
-	"PROJECT_BACKEND/config"
-	course "PROJECT_BACKEND/features/courses/Data"
+	"RestfulAPIElearningVideo/database"
+	course "RestfulAPIElearningVideo/features/courses/Data"
+	tasks "RestfulAPIElearningVideo/features/tasks/Data"
+	user "RestfulAPIElearningVideo/features/users/Data"
+
 	//"golang.org/x/crypto/bcrypt"
 )
 
@@ -17,8 +20,10 @@ import (
 //}UpdatedAt 	time.Time
 //	CreatedAt 	time.Time
 
-func AutoMigrate() {
-	db := config.DB
+
+
+func AutoMigrate()  {
+	db := database.DB
 	if err := db.Exec("DROP TABLE IF EXISTS user_course_videos").Error; err != nil {
 		panic(err)
 	}
@@ -45,12 +50,38 @@ func AutoMigrate() {
 	}
 
 	err := db.AutoMigrate(
-		// courses
 		&course.Course{},
 		&course.Video{},
+		&tasks.Task{},
+		&user.User{},
+		&user.UserTask{},
+		&user.UserCourse{},
+		//&user.UserNote{},
+		&user.UserCourseVideo{},
 	)
 	if err != nil {
 		panic(err)
 	}
+	//pass1, _ := GenerateHashFromPass("coba")
+	user1 := user.User{
+		Name:     "Mahard",
+		Username:    "mahard",
+		Password: "123",
+	}
 
+	//pass2, _ := GenerateHashFromPass("coba123")
+	user2 := user.User{
+		Name:     "Riza",
+		Username:    "riza",
+		Password: "coba133",
+	}
+
+	if err := db.Create(&user1).Error;
+	err != nil {
+		panic(err)
+	}
+	if err := db.Create(&user2).Error;
+		err != nil {
+		panic(err)
+	}
 }

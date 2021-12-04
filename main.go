@@ -1,15 +1,19 @@
 package main
 
 import (
-	"RestfulAPIElearningVideo/config"
+	"RestfulAPIElearningVideo/database"
+	"RestfulAPIElearningVideo/middleware"
 	"RestfulAPIElearningVideo/migration"
 	"RestfulAPIElearningVideo/routes"
 )
 
 func main() {
-	config.InitDB()
+	database.InitDB()
 	migration.AutoMigrate()
 	e := routes.New()
+
 	e.Start(":1234")
+	middleware.LogMiddleware(e)
 }
+
 

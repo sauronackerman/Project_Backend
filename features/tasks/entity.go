@@ -3,17 +3,16 @@ package tasks
 import "time"
 
 type TaskCore struct {
-	ID          uint
+	ID uint
 	Description string
-	VideoId     string
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
+	VideoId string
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
 
 type Business interface {
 	CreateTaskByVideoId(data TaskCore) (TaskCore, error, int)
 	FindTaskByVideoId(videoId string) (TaskCore, error, int)
-
 	//GetTaskById(id int) (TaskCore, error)
 	DeleteTask(videoId string) (TaskCore, error)
 	//UpdateTask(data TaskCore) error
