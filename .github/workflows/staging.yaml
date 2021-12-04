@@ -31,3 +31,28 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: push image to dockerhub
         run: docker push rizamahard/restproject:latest
+  
+  deployment:
+    name: "deploy to ec2"
+    runs-on: ubuntu-latest
+    needs: build-push-docker
+    steps:
+      - uses: actions/checkout@v2
+      - name: configuration ssh
+        env:
+          SSH_USER: ${{ secrets.SSH_USERNAME }}
+          SSH_KEY: ${{ secrets.RESTPROJECT_PEM }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/restproject.pem
+          chmod 700 ~/.ssh/restproject.pem
+          cat >> ~/.ssh/config << END
+          Host development 
+            HostName $SSH_HOST
+            User  $SSH_USER
+            IdentityFile ~/.ssh/restproject.pem
+            StrictHostKeyChecking=no
+          END
+      - name: connect to ec2 AWS, remove container before pull, pull from registry, start
+        run: ssh development docker rm -f $(docker ps -a -q) || true && docker pull rizamahard/restproject:latest && docker run -d -p 1234:1234 --name restproject rizamahard/restproject:latest
