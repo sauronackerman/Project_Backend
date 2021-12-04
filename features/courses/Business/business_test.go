@@ -61,7 +61,6 @@ func TestCreateCourse(t *testing.T)  {
 		//assert.Equal(t, err.Error(), "err")
 	})
 }
-
 func TestAddVideoToCourse(t *testing.T)  {
 	t.Run("create course sukses", func(t *testing.T) {
 		crsData.On("GetPlaylistIdforVideo", mock.Anything, mock.AnythingOfType("string")).Return(cvid2, nil) .Once()
@@ -74,13 +73,12 @@ func TestAddVideoToCourse(t *testing.T)  {
 		assert.Equal(t, status, http.StatusInternalServerError)
 		assert.Error(t, err)
 	})
-	t.Run("create course invalid", func(t *testing.T) {
-		crsData.On("GetPlaylistIdforVideo", mock.AnythingOfType("courses.VideoCore"), mock.AnythingOfType("string")).Return(cvid2, nil) .Once()
-		_, err, _ := crsBusiness.AddVideoToCourse(context.Background(), "2")
-		assert.NotNil(t, err)
-	})
+	//t.Run("create course invalid", func(t *testing.T) {
+	//	crsData.On("GetPlaylistIdforVideo", mock.AnythingOfType("courses.VideoCore"), mock.AnythingOfType("string")).Return(cvid2, nil) .Once()
+	//	_, err, _ := crsBusiness.AddVideoToCourse(context.Background(), "2")
+	//	assert.NotNil(t, err)
+	//})
 }
-
 func TestDeleteCourseById(t *testing.T)  {
 	t.Run("delete course sukses", func(t *testing.T) {
 		crsData.On("DeleteCourseDataById", mock.AnythingOfType("string")).Return(crsValue, nil) .Once()
