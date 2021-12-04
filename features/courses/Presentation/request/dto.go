@@ -9,10 +9,11 @@ type CreateCourse struct {
 	//CreatedAt time.Time `json:"created_at"`
 	//UpdatedAt time.Time `json:"updated_at"`
 	//DeletedAt sql.NullTime `json:"deleted_at"`
-	Title string `json:"title"`
-	Description string `json:"description"`
-	PlaylistID string `json:"playlist_id"`
-	Video []CreateVideo `json:"video"`
+
+	Title       string        `json:"title"`
+	Description string        `json:"description"`
+	PlaylistID  string        `json:"playlist_id"`
+	Video       []CreateVideo `json:"video"`
 }
 
 type CreateVideo struct {
@@ -34,7 +35,6 @@ type CreateVideo struct {
 //	}
 //}
 //
-
 
 
 func ToCore(req CreateCourse) courses.CourseCore {
@@ -62,13 +62,12 @@ func ToCore(req CreateCourse) courses.CourseCore {
 //}
 
 
-
-
-
 type GetCourseInput struct {
 	ID int `uri:"id" binding:"required"`
 }
 
 type DetailCreateRequest struct {
 	PlaylistID string `json:"playlist_id"`
+
 }
+

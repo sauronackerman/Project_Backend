@@ -76,6 +76,7 @@ func AutoMigrate()  {
 		Password: "coba133",
 	}
 
+
 	if err := db.Create(&user1).Error;
 	err != nil {
 		panic(err)

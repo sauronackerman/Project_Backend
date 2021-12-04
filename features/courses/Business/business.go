@@ -2,6 +2,7 @@ package Business
 
 import (
 	"RestfulAPIElearningVideo/features/courses"
+
 	"context"
 	"net/http"
 )
@@ -26,6 +27,7 @@ func (cb *courseBusiness) AddVideoToCourse(ctx context.Context, playlistId strin
 	createdVideo, err := cb.courseData.GetPlaylistIdforVideo(ctx, playlistId)
 	if err != nil {
 		return []courses.VideoCore{}, err, http.StatusInternalServerError
+
 	}
 	return createdVideo, nil, http.StatusOK
 }

@@ -6,13 +6,15 @@ import (
 )
 
 type CourseCore struct {
-	ID uint
-	Title string
+
+	ID          uint
+	Title       string
 	Description string
-	PlaylistID string
-	Videos []VideoCore `gorm:"foreignKey:CourseID;type:longtext;reference:PlaylistID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	PlaylistID  string
+	Videos      []VideoCore `gorm:"foreignKey:CourseID;type:longtext;reference:PlaylistID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+
 }
 
 //PlaylistID = PlaylistID, videorul = videoId
@@ -35,15 +37,12 @@ type Task struct {
 }
 
 
-
-
 type Business interface {
 	CreateCourse(course CourseCore) (CourseCore, error, int)
 	AddVideoToCourse(ctx context.Context, playlistId string) ([]VideoCore, error, int)
 	DeleteCourseById(id string) (CourseCore, error)
 	FindVideoByVideoId(videoId string) (error, int)
 	FindCourseById(id uint) (error, int)
-
 }
 
 type Data interface {
@@ -52,5 +51,4 @@ type Data interface {
 	SelectCourseById(id uint)  error
 	SelectVideoByVideoId(videoId string)  error
 	DeleteCourseDataById(id string) (CourseCore, error)
-
 }

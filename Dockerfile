@@ -1,4 +1,5 @@
 
+
 FROM golang:1.17.3-alpine3.14 AS builder
 
 WORKDIR /app
@@ -18,4 +19,5 @@ COPY .env /app
 EXPOSE 8000
 
 CMD [ "./main" ]
+
 

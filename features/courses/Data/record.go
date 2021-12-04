@@ -69,8 +69,6 @@ func toCore2(c Course) courses.CourseCore {
 	}
 }
 
-
-
 func toSliceVideoCore(v []Video) []courses.VideoCore {
 	videos := make([]courses.VideoCore, len(v))
 
