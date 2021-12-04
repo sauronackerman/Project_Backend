@@ -1,14 +1,23 @@
-#build stage
-FROM golang:alpine AS builder
 
-WORKDIR /go/src/app
-COPY . .
+
+FROM golang:1.17.3-alpine3.14 AS builder
+
+WORKDIR /app
+COPY ./ ./
 RUN go mod download
-RUN go build -o mainfile
 
-#final stage
-FROM alpine:latest
+RUN go build -o main
 
-EXPOSE 8080
 
-CMD ["./mainfile"]
+#2
+FROM alpine:3.14
+WORKDIR /app
+COPY --from=builder /app/main .
+COPY .env /app
+
+
+EXPOSE 8000
+
+CMD [ "./main" ]
+
+

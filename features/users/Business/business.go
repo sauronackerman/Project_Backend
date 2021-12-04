@@ -1,11 +1,12 @@
 package Business
 
 import (
-	"PROJECT_BACKEND/features/users"
-	"PROJECT_BACKEND/middleware"
+	"RestfulAPIElearningVideo/features/users"
+	"RestfulAPIElearningVideo/middleware"
 	"context"
 	"errors"
 	"net/http"
+
 	//"RestfulAPIElearningVideo/migration"
 )
 
@@ -13,12 +14,12 @@ type usersBusiness struct {
 	userData users.Data
 }
 
-func NewUserBusiness(usrData users.Data) users.Business {
+func NewUserBusiness(usrData users.Data) users.Business  {
 	return &usersBusiness{usrData}
 }
 
 func (ub *usersBusiness) LoginUser(data users.UserCore) (users.UserCore, error) {
-	userData, err := ub.userData.CheckUser(data)
+	userData,err:=ub.userData.CheckUser(data)
 	if err != nil {
 		return users.UserCore{}, err
 	}
@@ -44,8 +45,9 @@ func (ub *usersBusiness) UserChooseCourse(username string, playlistId string) (e
 		return err, http.StatusInternalServerError
 	}
 
+
 	courses := users.UserCourse{
-		UserID:   user.ID,
+		UserID:     user.ID,
 		CourseID: playlistId,
 	}
 	err = ub.userData.InsertUserCourse(courses)
@@ -54,6 +56,7 @@ func (ub *usersBusiness) UserChooseCourse(username string, playlistId string) (e
 	}
 	return nil, http.StatusCreated
 }
+
 
 func (ub *usersBusiness) UserStartCourse(ctx context.Context, playlistId string, userId uint) ([]users.UserCourseVideo, error, int) {
 	createdVideo, err := ub.userData.GetPlaylistIdforVideo(ctx, playlistId, userId)

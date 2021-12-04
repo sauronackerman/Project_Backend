@@ -1,9 +1,7 @@
 package response
 
 import (
-
 	"RestfulAPIElearningVideo/features/courses"
-
 	"database/sql"
 	"time"
 )
@@ -29,4 +27,5 @@ func ToCourseResponse(c courses.CourseCore) CreateCourse {
 	return CreateCourse{
 		PlaylistID: c.PlaylistID,
 	}
+}
 

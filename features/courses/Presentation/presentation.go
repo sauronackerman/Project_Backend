@@ -1,6 +1,8 @@
 package Presentation
 
 import (
+
+
 	"RestfulAPIElearningVideo/features/courses"
 	"RestfulAPIElearningVideo/features/courses/Presentation/request"
 	"RestfulAPIElearningVideo/features/courses/Presentation/response"
@@ -8,14 +10,12 @@ import (
 	"net/http"
 
 )
-
 type BaseReponses struct {
 	Code    int         `json:"code"`
 	Message string      `json:"message"`
 	Errors  []string    `json:"errors,omitempty"`
 	Data    interface{} `json:"data"`
 }
-
 //func NewErrorResponse(c echo.Context, error int, err error) error {
 //	response := BaseReponses{}
 //	response.Code = error
@@ -36,14 +36,12 @@ type CoursePresentation struct {
 	courseBusiness courses.Business
 }
 type json map[string]interface{}
-
 func NewPresentation(courseBusiness courses.Business) *CoursePresentation {
 	return &CoursePresentation{courseBusiness}
 }
 
 
-func (cp *CoursePresentation) CreateCourse(c echo.Context) error {
-
+func(cp *CoursePresentation) CreateCourse(c echo.Context) error {
 	var newCourse request.CreateCourse
 	c.Bind(&newCourse)
 	course, err, status := cp.courseBusiness.CreateCourse(request.ToCore(newCourse))
@@ -57,12 +55,13 @@ func (cp *CoursePresentation) CreateCourse(c echo.Context) error {
 }
 
 
-func (cp *CoursePresentation) AddVideoToCourse(c echo.Context) error {
+
+func(cp *CoursePresentation) AddVideoToCourse(c echo.Context) error {
 	var newVideo request.CreateVideo
 	ctx := c.Request().Context()
-	req := c.Param("playlistId")
-	c.Bind(&newVideo)
-	video, err, status := cp.courseBusiness.AddVideoToCourse(ctx, req)
+		req := c.Param("playlistId")
+		c.Bind(&newVideo)
+		video, err, status := cp.courseBusiness.AddVideoToCourse(ctx, req)
 
 	if err != nil {
 		return c.JSON(status, json{
@@ -72,8 +71,7 @@ func (cp *CoursePresentation) AddVideoToCourse(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, json{"video": video})
 
-
-}
+	}
 
 
 func (cp *CoursePresentation) DeleteCourse(c echo.Context) error {
@@ -124,4 +122,6 @@ func (cp *CoursePresentation) DeleteCourse(c echo.Context) error {
 //	//}
 //	//
 //	//return NewSuccessResponse(c, response)
+//}
+
 

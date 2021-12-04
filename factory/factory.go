@@ -2,7 +2,8 @@ package factory
 
 import (
 
-	"RestfulAPIElearningVideo/config"
+	"RestfulAPIElearningVideo/database"
+
 	courseBusiness "RestfulAPIElearningVideo/features/courses/Business"
 	courseData "RestfulAPIElearningVideo/features/courses/Data"
 	taskBusiness "RestfulAPIElearningVideo/features/tasks/Business"
@@ -24,20 +25,19 @@ type Presenter struct {
 
 func New() *Presenter {
 	//courses
-	courseData := courseData.NewCourseData(config.DB)
+	courseData := courseData.NewCourseData(database.DB)
 	courseBusiness := courseBusiness.NewCourseBusiness(courseData)
 	coursePresentation := coursePresentation.NewPresentation(courseBusiness)
 
 	//users
-	userData := userData.NewUserData(config.DB)
+	userData := userData.NewUserData(database.DB)
 	userBusiness := userBusiness.NewUserBusiness(userData)
 	userPresentation := userPresentation.NewUserPresentation(userBusiness)
 
 	//task
-	taskData := taskData.NewTaskData(config.DB)
+	taskData := taskData.NewTaskData(database.DB)
 	taskBusiness := taskBusiness.NewTaskBusiness(taskData, courseBusiness)
 	taskPresentation := taskPresentation.NewTaskPresentation(taskBusiness)
-
 	return &Presenter{
 		coursePresentation,
 		userPresentation,

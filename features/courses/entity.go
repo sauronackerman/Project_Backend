@@ -20,19 +20,19 @@ type CourseCore struct {
 //PlaylistID = PlaylistID, videorul = videoId
 
 type VideoCore struct {
-	ID        uint
-	Title     string
-	CourseID  string
-	VideoID   string `gorm:"not null"`
-	Duration  string
-	Task      Task
-	UpdatedAt time.Time
-	CreatedAt time.Time
+	ID uint
+	Title string
+	CourseID 	string
+	VideoID 	string `gorm:"not null"`
+	Duration 	string
+	Task		Task
+	UpdatedAt 	time.Time
+	CreatedAt 	time.Time
 }
 
 type Task struct {
-	ID          uint `gorm:"primaryKey"`
-	VideoID     uint
+	ID uint	`gorm:"primaryKey"`
+	VideoID uint
 	Description string
 }
 
@@ -43,8 +43,6 @@ type Business interface {
 	DeleteCourseById(id string) (CourseCore, error)
 	FindVideoByVideoId(videoId string) (error, int)
 	FindCourseById(id uint) (error, int)
-
-
 }
 
 type Data interface {

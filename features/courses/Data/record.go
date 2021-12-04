@@ -1,7 +1,6 @@
 package Data
 
 import (
-
 	"RestfulAPIElearningVideo/features/courses"
 	"time"
 )
@@ -11,26 +10,25 @@ type Course struct {
 	Title       string
 	Description string
 	PlaylistID  string `gorm:"primaryKey"`
-
 	Videos      []Video `gorm:"foreignKey:CourseID;type:longtext;reference:PlaylistID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	UpdatedAt   time.Time
 	CreatedAt   time.Time
 }
 
 type Video struct {
-	ID        uint `gorm:"primaryKey"`
-	CourseID  string
-	Title     string
-	VideoID   string `gorm:"not null"`
-	Duration  string
-	Task      Task
-	UpdatedAt time.Time
-	CreatedAt time.Time
+	ID       	uint `gorm:"primaryKey"`
+	CourseID 	string
+	Title 		string
+	VideoID 	string `gorm:"not null"`
+	Duration 	string
+	Task		Task
+	UpdatedAt 	time.Time
+	CreatedAt 	time.Time
 }
 
 type Task struct {
-	ID          uint `gorm:"primaryKey"`
-	VideoID     uint
+	ID uint	`gorm:"primaryKey"`
+	VideoID uint
 	Description string
 }
 
@@ -38,7 +36,7 @@ func toVideoCore(v *Video) courses.VideoCore {
 	return courses.VideoCore{
 		ID:       v.ID,
 		Title:    v.Title,
-		VideoID:  v.VideoID,
+		VideoID: v.VideoID,
 		Duration: v.Duration,
 	}
 }
@@ -49,28 +47,27 @@ func toCourseCore(c *Course) courses.CourseCore {
 	//	convertedVideos = append(convertedVideos, toVideoCore(req))
 	//}
 	return courses.CourseCore{
-		ID:          c.ID,
+		ID:       	 c.ID,
 		Title:       c.Title,
 		Description: c.Description,
-		PlaylistID:  c.PlaylistID,
-		Videos:      toSliceVideoCore(c.Videos),
-		CreatedAt:   c.CreatedAt,
-		UpdatedAt:   c.UpdatedAt,
+		PlaylistID:   c.PlaylistID,
+		Videos:  	 toSliceVideoCore(c.Videos),
+		CreatedAt: c.CreatedAt,
+		UpdatedAt: c.UpdatedAt,
 	}
 }
 
 func toCore2(c Course) courses.CourseCore {
 	return courses.CourseCore{
-		ID:          c.ID,
+		ID:       	 c.ID,
 		Title:       c.Title,
 		Description: c.Description,
-		PlaylistID:  c.PlaylistID,
-		Videos:      toSliceVideoCore(c.Videos),
-		CreatedAt:   c.CreatedAt,
-		UpdatedAt:   c.UpdatedAt,
+		PlaylistID:   c.PlaylistID,
+		Videos:  	 toSliceVideoCore(c.Videos),
+		CreatedAt: c.CreatedAt,
+		UpdatedAt: c.UpdatedAt,
 	}
 }
-
 
 func toSliceVideoCore(v []Video) []courses.VideoCore {
 	videos := make([]courses.VideoCore, len(v))
@@ -113,7 +110,6 @@ func (a *Video) toCore() courses.VideoCore {
 		Duration:    a.Duration,
 	}
 }
-
 //func fromSliceVideoCore(v []courses.VideoCore) []Video {
 //	//videos := make([]courses.VideoCore, len(v))
 //	//

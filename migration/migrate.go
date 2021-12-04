@@ -1,8 +1,7 @@
 package migration
 
 import (
-
-	"RestfulAPIElearningVideo/config"
+	"RestfulAPIElearningVideo/database"
 	course "RestfulAPIElearningVideo/features/courses/Data"
 	tasks "RestfulAPIElearningVideo/features/tasks/Data"
 	user "RestfulAPIElearningVideo/features/users/Data"
@@ -23,10 +22,8 @@ import (
 
 
 
-
 func AutoMigrate()  {
-
-	db := config.DB
+	db := database.DB
 	if err := db.Exec("DROP TABLE IF EXISTS user_course_videos").Error; err != nil {
 		panic(err)
 	}
@@ -53,7 +50,6 @@ func AutoMigrate()  {
 	}
 
 	err := db.AutoMigrate(
-
 		&course.Course{},
 		&course.Video{},
 		&tasks.Task{},
@@ -62,12 +58,10 @@ func AutoMigrate()  {
 		&user.UserCourse{},
 		//&user.UserNote{},
 		&user.UserCourseVideo{},
-
 	)
 	if err != nil {
 		panic(err)
 	}
-
 	//pass1, _ := GenerateHashFromPass("coba")
 	user1 := user.User{
 		Name:     "Mahard",
@@ -82,6 +76,7 @@ func AutoMigrate()  {
 		Password: "coba133",
 	}
 
+
 	if err := db.Create(&user1).Error;
 	err != nil {
 		panic(err)
@@ -90,5 +85,4 @@ func AutoMigrate()  {
 		err != nil {
 		panic(err)
 	}
-
 }

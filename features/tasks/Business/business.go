@@ -1,28 +1,30 @@
 package Business
 
 import (
-	"PROJECT_BACKEND/features/courses"
-	"PROJECT_BACKEND/features/tasks"
+	"RestfulAPIElearningVideo/features/courses"
+	"RestfulAPIElearningVideo/features/tasks"
 	"errors"
 	"net/http"
 )
 
 type taskBusiness struct {
-	taskData       tasks.Data
+	taskData tasks.Data
 	courseBusiness courses.Business
+
 }
 
-func NewTaskBusiness(tskData tasks.Data, courseBusiness courses.Business) tasks.Business {
+func NewTaskBusiness(tskData tasks.Data, courseBusiness courses.Business) tasks.Business  {
 	return &taskBusiness{tskData, courseBusiness}
 }
 
-func (tb *taskBusiness) CreateTaskByVideoId(data tasks.TaskCore) (tasks.TaskCore, error, int) {
+func (tb *taskBusiness) CreateTaskByVideoId(data tasks.TaskCore) (tasks.TaskCore, error, int)  {
 	createdTask, err := tb.taskData.InsertData(data)
 	if err != nil {
 		return data, err, http.StatusInternalServerError
 	}
 	return createdTask, nil, http.StatusOK
 }
+
 
 func (tb *taskBusiness) FindTaskByVideoId(videoId string) (tasks.TaskCore, error, int) {
 	taskData, err := tb.taskData.SelectTaskByVideoId(videoId)

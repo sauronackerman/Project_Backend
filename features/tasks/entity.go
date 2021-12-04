@@ -3,11 +3,11 @@ package tasks
 import "time"
 
 type TaskCore struct {
-	ID          uint
+	ID uint
 	Description string
-	VideoId     string
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
+	VideoId string
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
 
 type Business interface {
