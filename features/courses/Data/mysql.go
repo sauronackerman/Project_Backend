@@ -10,20 +10,17 @@ import (
 	"google.golang.org/api/option"
 	"google.golang.org/api/youtube/v3"
 	"gorm.io/gorm"
-	"log"
-
 )
 
 type courseData struct {
 	Conn *gorm.DB
 }
 
-
-func NewCourseData(conn *gorm.DB) *courseData  {
+func NewCourseData(conn *gorm.DB) *courseData {
 	return &courseData{conn}
 }
 
-func (cd *courseData) InsertCourse(course courses.CourseCore)  (resp courses.CourseCore, err error) {
+func (cd *courseData) InsertCourse(course courses.CourseCore) (resp courses.CourseCore, err error) {
 
 	//record := toCourseCore(course)
 	videos := make([]Video, len(course.Videos))
@@ -68,7 +65,7 @@ func (cd *courseData) GetPlaylistIdforVideo(ctx context.Context, playlistId stri
 	var video Video
 	var videoparse string
 
-	for _,item := range response.Items {
+	for _, item := range response.Items {
 		//video.CourseID = playlistId
 		//video.VideoID = item.ContentDetails.VideoId
 		videoparse = item.ContentDetails.VideoId
@@ -77,14 +74,14 @@ func (cd *courseData) GetPlaylistIdforVideo(ctx context.Context, playlistId stri
 	}
 	for i := 0; i < len(videoParse); i++ {
 
-		insert3 := youtube.NewVideosService(youtubeService).List([]string{"snippet","contentDetails"}).Id(videoParse[i])
+		insert3 := youtube.NewVideosService(youtubeService).List([]string{"snippet", "contentDetails"}).Id(videoParse[i])
 
 		resp, err := insert3.Do()
 		if err != nil {
 			panic(err)
 		}
 
-		for _,item := range resp.Items {
+		for _, item := range resp.Items {
 
 			video.CourseID = playlistId
 			video.VideoID = videoParse[i]
