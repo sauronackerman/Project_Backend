@@ -109,7 +109,7 @@ func TestFindVideoById(t *testing.T)  {
 
 func TestFindCourseById(t *testing.T)  {
 	t.Run("find sukses", func(t *testing.T) {
-		crsData.On("SelectCourseById", mock.AnythingOfType("string")).Return(crsValue, nil) .Once()
+		crsData.On("SelectCourseById", mock.AnythingOfType("uint")).Return(crsValue, nil) .Once()
 		err, _ := crsBusiness.FindCourseById(1)
 		assert.Equal(t, err, nil)
 	})
@@ -120,7 +120,6 @@ func TestFindCourseById(t *testing.T)  {
 		assert.Equal(t, status, http.StatusInternalServerError)
 	})
 }
-
 
 
 
